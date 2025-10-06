@@ -5,7 +5,8 @@ API_KEY = os.getenv("API_KEY")
 CITY = os.getenv("CITY", "Paris")
 BASE_URL = "http://api.weatherapi.com/v1/current.json"
 
-def get_weather():
+
+def get_weather() -> None:
     if not API_KEY:
         raise ValueError("NO API_KEY! Set -e API_KEY=<your_api_key>")
 
@@ -14,9 +15,11 @@ def get_weather():
     response.raise_for_status()
     data = response.json()
 
-    CONDITION = data["current"]["condition"]["text"]
-    TEMP_C = data["current"]["temp_c"]
-    print(f"Weather in {CITY}: {CONDITION}, {TEMP_C}°C")
+    cond = data["current"]["condition"]["text"]
+    temperature_c = data["current"]["temp_c"]
+    print(f"Weather in {CITY}: {cond}, {temperature_c}°C")
+    return None
+
 
 if __name__ == "__main__":
     get_weather()
